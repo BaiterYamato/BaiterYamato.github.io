@@ -7,6 +7,10 @@ const player = { x: 10, y: canvas.height / 2 - paddleHeight / 2, dy: 5 };
 const ai = { x: canvas.width - paddleWidth - 10, y: canvas.height / 2 - paddleHeight / 2, dy: 5 };
 const ball = { x: canvas.width / 2, y: canvas.height / 2, radius: 7, dx: 4, dy: 4 };
 
+let playerScore = 0;
+let aiScore = 0;
+const scoreEl = document.getElementById('score');
+
 let upPressed = false;
 let downPressed = false;
 
@@ -42,12 +46,23 @@ function update() {
     ball.x = ai.x - ball.radius;
   }
 
-  if (ball.x - ball.radius < 0 || ball.x + ball.radius > canvas.width) {
-    ball.x = canvas.width / 2;
-    ball.y = canvas.height / 2;
-    ball.dx = -ball.dx;
-    ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
+  if (ball.x - ball.radius < 0) {
+    aiScore++;
+    resetBall(-1);
   }
+  if (ball.x + ball.radius > canvas.width) {
+    playerScore++;
+    resetBall(1);
+  }
+
+  scoreEl.textContent = `${playerScore} : ${aiScore}`;
+}
+
+function resetBall(direction) {
+  ball.x = canvas.width / 2;
+  ball.y = canvas.height / 2;
+  ball.dx = 4 * direction;
+  ball.dy = 4 * (Math.random() > 0.5 ? 1 : -1);
 }
 
 function draw() {
