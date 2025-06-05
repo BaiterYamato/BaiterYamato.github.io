@@ -8,8 +8,15 @@ const ai = { x: canvas.width - paddleWidth - 10, y: canvas.height / 2 - paddleHe
 const ball = { x: canvas.width / 2, y: canvas.height / 2, radius: 7, dx: 4, dy: 4 };
 
 let playerScore = 0;
+5582pl-codex/refazer-aplicação-de-ping-pong
+const scoreEl = document.getElementById('score');
+const gameOverEl = document.getElementById('gameOver');
+const nameInput = document.getElementById('nameInput');
+const rankingEl = document.getElementById('ranking');
+let running = true;
 let aiScore = 0;
 const scoreEl = document.getElementById('score');
+main
 
 let upPressed = false;
 let downPressed = false;
@@ -47,6 +54,15 @@ function update() {
   }
 
   if (ball.x - ball.radius < 0) {
+5582pl-codex/refazer-aplicação-de-ping-pong
+    endGame();
+  }
+  if (ball.x + ball.radius > canvas.width) {
+    playerScore++;
+    resetBall(-1);
+  }
+
+  scoreEl.textContent = `Score: ${playerScore}`;
     aiScore++;
     resetBall(-1);
   }
@@ -56,6 +72,7 @@ function update() {
   }
 
   scoreEl.textContent = `${playerScore} : ${aiScore}`;
+main
 }
 
 function resetBall(direction) {
@@ -76,9 +93,53 @@ function draw() {
 }
 
 function loop() {
+5582pl-codex/refazer-aplicação-de-ping-pong
+  if (!running) return;
+main
   update();
   draw();
   requestAnimationFrame(loop);
 }
 
 loop();
+5582pl-codex/refazer-aplicação-de-ping-pong
+
+function endGame() {
+  running = false;
+  gameOverEl.classList.remove('hidden');
+  nameInput.focus();
+}
+
+nameInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && nameInput.value.trim() !== '') {
+    saveScore(nameInput.value.trim());
+    nameInput.value = '';
+    gameOverEl.classList.add('hidden');
+    resetBall(1);
+    playerScore = 0;
+    scoreEl.textContent = `Score: ${playerScore}`;
+    running = true;
+    requestAnimationFrame(loop);
+  }
+});
+
+function saveScore(name) {
+  const ranking = JSON.parse(localStorage.getItem('ranking') || '[]');
+  ranking.push({ name, score: playerScore });
+  ranking.sort((a, b) => b.score - a.score);
+  localStorage.setItem('ranking', JSON.stringify(ranking));
+  updateRanking();
+}
+
+function updateRanking() {
+  const ranking = JSON.parse(localStorage.getItem('ranking') || '[]');
+  rankingEl.innerHTML = '';
+  ranking.slice(0, 10).forEach((entry) => {
+    const li = document.createElement('li');
+    li.textContent = `${entry.name} - ${entry.score}`;
+    rankingEl.appendChild(li);
+  });
+}
+
+updateRanking();
+main

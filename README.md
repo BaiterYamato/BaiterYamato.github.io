@@ -2,5 +2,3 @@
 
 Este repositório hospeda uma aplicação simples de Ping Pong utilizando HTML5 canvas.
 A página está disponível em [https://baiteryamato.github.io/](https://baiteryamato.github.io/).
-
-O jogo possui placar exibindo a pontuação do jogador e da IA e reinicia a bola a cada ponto.
