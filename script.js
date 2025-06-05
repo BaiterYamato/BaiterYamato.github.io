@@ -3,12 +3,12 @@ const ctx = canvas.getContext('2d');
 
 const paddleWidth = 10;
 const paddleHeight = 80;
-const player = { x: 10, y: canvas.height / 2 - paddleHeight / 2, dy: 5 };
-const ai = { x: canvas.width - paddleWidth - 10, y: canvas.height / 2 - paddleHeight / 2, dy: 5 };
-const ball = { x: canvas.width / 2, y: canvas.height / 2, radius: 7, dx: 4, dy: 4 };
+const player = { x: 10, y: 0, dy: 5 };
+const ai = { x: canvas.width - paddleWidth - 10, y: 0, dy: 5 };
+const ball = { x: 0, y: 0, radius: 7, dx: 4, dy: 4 };
 
 let playerScore = 0;
-5582pl-codex/refazer-aplicação-de-ping-pong
+let running = false;
 const scoreEl = document.getElementById('score');
 const gameOverEl = document.getElementById('gameOver');
 const nameInput = document.getElementById('nameInput');
@@ -59,13 +59,19 @@ function update() {
   }
   if (ball.x + ball.radius > canvas.width) {
     playerScore++;
-    resetBall(-1);
-  }
-
+function startGame() {
+  player.y = canvas.height / 2 - paddleHeight / 2;
+  ai.y = canvas.height / 2 - paddleHeight / 2;
+  resetBall(Math.random() > 0.5 ? 1 : -1);
+  playerScore = 0;
   scoreEl.textContent = `Score: ${playerScore}`;
-    aiScore++;
-    resetBall(-1);
-  }
+  running = true;
+  gameOverEl.classList.add('hidden');
+  requestAnimationFrame(loop);
+}
+
+startGame();
+    startGame();
   if (ball.x + ball.radius > canvas.width) {
     playerScore++;
     resetBall(1);
