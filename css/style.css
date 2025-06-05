@@ -8,6 +8,7 @@ body {
   background: #222;
   color: #fff;
   font-family: Arial, sans-serif;
+5582pl-codex/refazer-aplicação-de-ping-pong
 }
 
 h1 {
@@ -45,3 +46,20 @@ canvas {
   margin-top: 20px;
   text-align: left;
 }
+=======
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+#score {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+canvas {
+  background: #000;
+  border: 2px solid #fff;
+}
+main

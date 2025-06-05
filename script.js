@@ -8,11 +8,15 @@ const ai = { x: canvas.width - paddleWidth - 10, y: canvas.height / 2 - paddleHe
 const ball = { x: canvas.width / 2, y: canvas.height / 2, radius: 7, dx: 4, dy: 4 };
 
 let playerScore = 0;
+5582pl-codex/refazer-aplicação-de-ping-pong
 const scoreEl = document.getElementById('score');
 const gameOverEl = document.getElementById('gameOver');
 const nameInput = document.getElementById('nameInput');
 const rankingEl = document.getElementById('ranking');
 let running = true;
+let aiScore = 0;
+const scoreEl = document.getElementById('score');
+main
 
 let upPressed = false;
 let downPressed = false;
@@ -50,6 +54,7 @@ function update() {
   }
 
   if (ball.x - ball.radius < 0) {
+5582pl-codex/refazer-aplicação-de-ping-pong
     endGame();
   }
   if (ball.x + ball.radius > canvas.width) {
@@ -58,6 +63,16 @@ function update() {
   }
 
   scoreEl.textContent = `Score: ${playerScore}`;
+    aiScore++;
+    resetBall(-1);
+  }
+  if (ball.x + ball.radius > canvas.width) {
+    playerScore++;
+    resetBall(1);
+  }
+
+  scoreEl.textContent = `${playerScore} : ${aiScore}`;
+main
 }
 
 function resetBall(direction) {
@@ -78,13 +93,16 @@ function draw() {
 }
 
 function loop() {
+5582pl-codex/refazer-aplicação-de-ping-pong
   if (!running) return;
+main
   update();
   draw();
   requestAnimationFrame(loop);
 }
 
 loop();
+5582pl-codex/refazer-aplicação-de-ping-pong
 
 function endGame() {
   running = false;
@@ -124,3 +142,4 @@ function updateRanking() {
 }
 
 updateRanking();
+main
