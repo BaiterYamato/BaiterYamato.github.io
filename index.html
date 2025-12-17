@@ -2,25 +2,118 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Ping Pong MVP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planner de Adesivos Die-cut</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Ping Pong</h1>
-5582pl-codex/refazer-aplicação-de-ping-pong
-  <div id="score">Score: 0</div>
-  <canvas id="gameCanvas" width="800" height="400"></canvas>
-  <div id="gameOver" class="hidden">
-    <p>Game Over</p>
-    <p>Digite seu nome e pressione Enter</p>
-    <input id="nameInput" type="text" placeholder="Seu nome">
-  </div>
-  <h2>Ranking</h2>
-  <ol id="ranking"></ol>
+  <header class="app-header">
+    <div class="logo">Sticker Lab</div>
+    <div class="header-actions">
+      <button class="ghost" id="clearBoard">Limpar grade</button>
+      <div class="pill">Live preview automático • folha completa na tela</div>
+    </div>
+  </header>
 
-  <div id="score">0 : 0</div>
-  <canvas id="gameCanvas" width="800" height="400"></canvas>
-main
+  <main class="layout">
+    <section class="controls">
+      <div class="card hero">
+        <div>
+          <p class="eyebrow">Estilo Duolingo · Neumorfismo</p>
+          <h1>Monte cartelas A4/A5/A6 com recorte die-cut e fundo transparente</h1>
+          <p>Envie um lote de adesivos, defina contorno, espaçamento e tamanhos individuais. O planner rotaciona e organiza cada arte para ocupar o menor espaço possível.</p>
+          <div class="settings-grid">
+            <label class="field">
+              <span>Tamanho da folha</span>
+              <select id="sheetSize">
+                <option value="A4">A4</option>
+                <option value="A5">A5</option>
+                <option value="A6">A6</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Orientação</span>
+              <select id="orientation">
+                <option value="portrait">Retrato</option>
+                <option value="landscape">Paisagem</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Unidade</span>
+              <select id="unitSelect">
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="px">px</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Margem externa</span>
+              <input type="number" id="marginInput" min="0" step="0.5" value="5">
+            </label>
+            <label class="field">
+              <span>Espaçamento entre adesivos</span>
+              <input type="number" id="gapInput" min="0" step="0.5" value="2">
+            </label>
+            <label class="field">
+              <span>Cor do contorno padrão</span>
+              <input type="color" id="defaultContourColor" value="#22c55e">
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card upload-card">
+        <div class="upload-header">
+          <div>
+            <h2>Upload de adesivos</h2>
+            <p>Arraste PNGs com fundo transparente ou clique para buscar. Ajuste quantidades e contornos individualmente.</p>
+          </div>
+          <div class="mini-settings">
+            <label class="field compact">
+              <span>Pré-visualizar medidas em</span>
+              <select id="previewUnit">
+                <option value="mm">mm</option>
+                <option value="cm">cm</option>
+                <option value="px">px</option>
+              </select>
+            </label>
+          </div>
+        </div>
+        <div id="dropZone" class="dropzone">
+          <input type="file" id="fileInput" accept="image/*" multiple>
+          <p>Solte as imagens aqui ou clique para selecionar</p>
+          <small>O planner lê proporção, permite rotacionar e replica cada arte conforme a quantidade definida.</small>
+        </div>
+        <div id="stickerList" class="sticker-list"></div>
+      </div>
+    </section>
+
+    <section class="preview">
+      <div class="card preview-card">
+        <div class="preview-header">
+          <div>
+            <p class="eyebrow">Live preview</p>
+            <h2>Cartela pronta para corte</h2>
+            <p id="pageIndicator">Página 1 de 1</p>
+          </div>
+          <div class="preview-actions">
+            <button class="ghost" id="prevPage">◀</button>
+            <button class="ghost" id="nextPage">▶</button>
+            <button class="primary" id="repack">Recalcular</button>
+          </div>
+        </div>
+        <div class="sheet-wrapper">
+          <svg id="sheetCanvas" aria-label="preview da folha"></svg>
+        </div>
+        <div class="badges" id="summaryBadges"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Dicas: use PNG com contorno transparente; ajuste contorno em mm/cm/px; veja ocupação e número de páginas antes de imprimir.</p>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
